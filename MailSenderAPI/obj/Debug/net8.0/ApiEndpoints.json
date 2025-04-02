@@ -1,0 +1,155 @@
+[
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailExtensionController",
+    "Method": "AddExtension",
+    "RelativePath": "api/email/extension/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "extension",
+        "Type": "MailSenderAPI.Models.NewFolder.ExtensionRqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailExtensionController",
+    "Method": "ChangeStatus",
+    "RelativePath": "api/email/extension/change-status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "extension",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "status",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailExtensionController",
+    "Method": "DeleteExtension",
+    "RelativePath": "api/email/extension/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "extension",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailExtensionController",
+    "Method": "GetByExtension",
+    "RelativePath": "api/email/extension/find/{extension}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "extension",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailExtensionController",
+    "Method": "GetAllExtensions",
+    "RelativePath": "api/email/extension/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.EmailController",
+    "Method": "SendEmail",
+    "RelativePath": "api/email/sendMail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "emailRequest",
+        "Type": "MailSenderAPI.Models.EmailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.SmtpSettingsController",
+    "Method": "GetById",
+    "RelativePath": "api/email/settings/{FromEmail}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FromEmail",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.SmtpSettingsController",
+    "Method": "Create",
+    "RelativePath": "api/email/settings/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "smtpSettings",
+        "Type": "MailSenderAPI.Models.DTO.SmtpSettignsRqDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.SmtpSettingsController",
+    "Method": "Delete",
+    "RelativePath": "api/email/settings/delete/{FromEmail}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FromEmail",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MailSenderAPI.Controllers.SmtpSettingsController",
+    "Method": "GetSmtpSettings",
+    "RelativePath": "api/email/settings/list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

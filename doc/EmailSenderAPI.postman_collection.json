@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "6f96d7dc-752f-4917-97cd-5021905035dc",
+		"name": "EmailSenderAPI",
+		"description": "Coleccion construida para el uso de la API de email sender.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43025321",
+		"_collection_link": "https://ex-cle-9081.postman.co/workspace/Ex-cle-Workspace~f2636cd0-a5de-42b6-87ce-480c260fcf6a/collection/43025321-6f96d7dc-752f-4917-97cd-5021905035dc?action=share&source=collection_link&creator=43025321"
+	},
+	"item": [
+		{
+			"name": "Send-Email",
+			"item": [
+				{
+					"name": "SendEmailData",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"to\": \"aalejog09@gmail.com\",\r\n  \"subject\": \"Test API Email Sender\",\r\n  \"body\": \"<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Correo de Prueba</title><style>body {font-family: Arial, sans-serif;line-height: 1.6;background-color: #f4f4f4;margin: 0;padding: 0;} .email-container {width: 100%;background-color: #ffffff;padding: 20px;margin: 20px auto;max-width: 600px;border-radius: 8px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);} .header {text-align: center;font-size: 24px;margin-bottom: 20px;} .content {font-size: 16px;color: #333333;margin-bottom: 20px;} .footer {font-size: 14px;text-align: center;color: #888888;} .footer a {color: #888888;text-decoration: none;}</style></head><body><div class='email-container'><div class='header'><h2>Saludos,</h2></div><div class='content'><p>Está recibiendo esta información: <strong>Informacion</strong> desde el API de envío de correos.</p><p><strong>Otro contenido dinamico</strong></p></div><div class='footer'><p><strong>No-Reply</strong></p><p>Este es un correo automatizado, por favor no responda.</p></div></div></body></html>\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/email/sendMail",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings-EmailSender",
+			"item": [
+				{
+					"name": "listSmtp",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/email/settings/list",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"settings",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByEmail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/email/settings/correo@correo.com",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"settings",
+								"correo@correo.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createMailSender",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"host\": \"smtp.gmail.com\",\r\n    \"port\": 465,\r\n    \"username\": \"qlibraryapp2024@gmail.com\",\r\n    \"password\": \"sbaj obcj uozg cncc xdscx ssss\",\r\n    \"useSSL\": true,\r\n    \"fromEmail\": \"qlibraryapp2024@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/email/settings/create",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"settings",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete EmailSender",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/email/settings/delete/correo@correo.com",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"settings",
+								"delete",
+								"correo@correo.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Extensions",
+			"item": [
+				{
+					"name": "addExtension",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"extensionName\": \"correo2.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/email/extension/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"extension",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listExtension",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/email/extension/list",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"extension",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByExtension",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/email/extension/find/correo.com",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"extension",
+								"find",
+								"correo.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/email/extension/change-status?extension=correo.com&status=false",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"extension",
+								"change-status"
+							],
+							"query": [
+								{
+									"key": "extension",
+									"value": "correo.com"
+								},
+								{
+									"key": "status",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteByExtension",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/email/extension/delete?extension=correo2.com",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"extension",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "extension",
+									"value": "correo2.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

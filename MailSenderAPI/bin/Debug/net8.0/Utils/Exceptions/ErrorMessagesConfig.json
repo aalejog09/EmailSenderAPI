@@ -1,0 +1,29 @@
+{
+  "Errors": [
+    {
+      "Code": 404,
+      "Message": "Recurso no encontrado",
+      "Detail": "El recurso solicitado no pudo ser encontrado."
+    },
+    {
+      "Code": 400,
+      "Message": "Solicitud incorrecta",
+      "Detail": "Los datos enviados no son válidos"
+    },
+    {
+      "Code": 401,
+      "Message": "Credenciales no validas",
+      "Detail": "Erorr de usuario o clave."
+    },
+    {
+      "Code": 409,
+      "Message": "Ya registrado",
+      "Detail": "El recurso que intentas crear ya existe en la base de datos."
+    },
+    {
+      "Code": 500,
+      "Message": "Error interno del servidor",
+      "Detail": "Se produjo un error inesperado"
+    }
+  ]
+}
