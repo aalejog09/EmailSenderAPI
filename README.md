@@ -157,7 +157,7 @@ el estandar de respuesta en Json seria:
 ## Funcionamiento del API
 En princpio es importante configurar las extenciones que seran permitidas para el envio de correos. Posteriormente se podra registrar los datos del SMTP que enviara los correos a cada destinatario. Finalmente, podra hacer uso del servicio de envio de correos. 
 
-La coleccion de postman esta disponible en la carpeta DOC del proyecto. sin embargo puedes acceder a ella directamente desde aca: [PostmanCollection](https://github.com/aalejog09/emailSenderAPI/blob/main/doc/EmailSenderAPI.postman_collection.json)
+La coleccion de postman esta disponible en la carpeta DOC del proyecto. sin embargo puedes acceder a ella directamente desde aca: [PostmanCollection](https://raw.githubusercontent.com/aalejog09/emailSenderAPI/main/doc/EmailSenderAPI.postman_collection.json)
 
 
 ### Gestionar Extensiones Permitidas.
