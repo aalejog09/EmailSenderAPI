@@ -25,7 +25,7 @@ namespace MailSenderAPI.Services
             _context = context;
         }
 
-        public async Task<ApiResponse<ExtensionRsDTO>> AddExtensionAsync(string extension)
+        public async Task<JSendResponse<ExtensionRsDTO>> AddExtensionAsync(string extension)
         {
 
             string[] validationErrors = await ValidateErrorsSmtpSettings(extension);
@@ -39,10 +39,11 @@ namespace MailSenderAPI.Services
             await _context.SaveChangesAsync();
 
             var response = new ExtensionRsDTO { ExtensionName = emailExtension.Extension, Status = emailExtension.Status };
-            return new ApiResponse<ExtensionRsDTO>(response);
+            return new JSendResponse<ExtensionRsDTO> { Status = ResponseStatus.SUCCESS, Code = 201, Message = "Extensión registrada con éxito.", Data = response };
+
         }
 
-        public async Task<ApiResponse<List<ExtensionRsDTO>>> GetAllExtensionsAsync()
+        public async Task<JSendResponse<List<ExtensionRsDTO>>> GetAllExtensionsAsync()
         {
            
             var ExtensionList = await _context.EmailExtensions.ToListAsync();
@@ -55,66 +56,68 @@ namespace MailSenderAPI.Services
                 extensionRsDTOs.Add(extensionRsDTO);
             }
 
-            var response = new ApiResponse<List<ExtensionRsDTO>>(extensionRsDTOs);
 
-            return response;
+            return new JSendResponse<List<ExtensionRsDTO>> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Extensión encontrada.", Data = extensionRsDTOs };
+
         }
 
-        public async Task<ApiResponse<ExtensionRsDTO>> GetByExtensionAsync(string extension)
+        public async Task<JSendResponse<ExtensionRsDTO>> GetByExtensionAsync(string extension)
         {
 
             var emailExtension  = await _context.EmailExtensions.FirstOrDefaultAsync(e => e.Extension == extension);
             if (emailExtension == null)
-                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no esta registrada.");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no está registrada.");
             var response = new ExtensionRsDTO { ExtensionName = emailExtension.Extension, Status = emailExtension.Status };
-            return new ApiResponse<ExtensionRsDTO>(response);
+            return new JSendResponse<ExtensionRsDTO> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Extensión encontrada.", Data = response };
+
         }
 
-        public async Task<ApiResponse<ExtensionRsDTO>> GetAllowedByExtensionAsync(string extension)
+        public async Task<JSendResponse<ExtensionRsDTO>> GetAllowedByExtensionAsync(string extension)
         {
 
             var emailExtension = await _context.EmailExtensions.FirstOrDefaultAsync(e => e.Extension == extension);
             if (emailExtension == null)
-                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no esta registrada.");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no está registrada.");
             if (emailExtension.Status == false)
-                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no esta disponible.");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no está disponible.");
 
             var response = new ExtensionRsDTO { ExtensionName = emailExtension.Extension, Status = emailExtension.Status };
-            return new ApiResponse<ExtensionRsDTO>(response);
+            return new JSendResponse<ExtensionRsDTO> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Extensión encontrada.", Data = response };
+
         }
 
-        public async Task<ApiResponse<ExtensionRsDTO>> ChangeExtensionStatus(string extension, bool status)
+        public async Task<JSendResponse<ExtensionRsDTO>> ChangeExtensionStatus(string extension, bool status)
         {
 
             var emailExtension = await _context.EmailExtensions.FirstOrDefaultAsync(e => e.Extension == extension);
             if (emailExtension == null)
             {
-                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no esta registrada.");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no está registrada.");
             }
             emailExtension.Status = status;
             await _context.SaveChangesAsync();
 
             var response = new ExtensionRsDTO { ExtensionName = emailExtension.Extension, Status = emailExtension.Status };
-            return new ApiResponse<ExtensionRsDTO>(response);
+            return new JSendResponse<ExtensionRsDTO> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Extensión actualizada con éxito", Data = response };
         }
 
 
-        public async Task<ApiResponse<string>> DeleteExtensionAsync(string extension)
+        public async Task<JSendResponse<string>> DeleteExtensionAsync(string extension)
         {
              var emailExtension = await _context.EmailExtensions.FirstOrDefaultAsync(e => e.Extension == extension);
             if (emailExtension == null)
-                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extension '{extension}' no esta registrada.");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, $"La extensión '{extension}' no está registrada.");
 
             _context.EmailExtensions.Remove(emailExtension);
             await _context.SaveChangesAsync();
-            return new ApiResponse<string>("Extension eliminada con exito");
+            return new JSendResponse<string> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Extensión eliminada con éxito", Data = null };
         }
 
         private async Task<string[]> ValidateErrorsSmtpSettings(string extension)
         {
             var validationErrors = new List<string>();
             if (extension == null || extension.Equals(" "))
-                validationErrors.Add($"La extencion no puede ser nula.");
+                validationErrors.Add($"La extensión no puede ser nula.");
 
 
             if (!Regex.IsMatch(extension, @"^(?!-)[A-Za-z0-9-]+(?<!-)\.[A-Za-z]{2,}(\.[A-Za-z]{2,})?$"))
@@ -122,7 +125,7 @@ namespace MailSenderAPI.Services
 
             var existExtension = await _context.EmailExtensions.FirstOrDefaultAsync(e => e.Extension == extension);
             if (existExtension != null)
-                throw _errorService.GetApiException(ErrorCodes.AlreadyRegistered, "Extension ya registrado.");
+                throw _errorService.GetApiException(ErrorCodes.AlreadyRegistered, "Extensión ya registrado.");
 
             return validationErrors.ToArray();
 

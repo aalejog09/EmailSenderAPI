@@ -465,3 +465,10 @@ C:\proyectos\Ex-cle\emailsenderapi\MailSenderAPI\bin\Debug\net8.0\Newtonsoft.Jso
 C:\proyectos\Ex-cle\emailsenderapi\MailSenderAPI\bin\Debug\net8.0\OBeautifulCode.Representation.System.dll
 C:\proyectos\Ex-cle\emailsenderapi\MailSenderAPI\bin\Debug\net8.0\OBeautifulCode.Type.dll
 C:\proyectos\Ex-cle\emailsenderapi\MailSenderAPI\bin\Debug\net8.0\Utils\Exceptions\ErrorMessagesConfig.json
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\Utils\Exceptions\ErrorMessagesConfig.json
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\Naos.Compression.Domain.dll
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\Naos.Serialization.Domain.dll
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\Naos.Serialization.Json.dll
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\OBeautifulCode.Representation.System.dll
+C:\proyectos\personal\emailSenderAPI\MailSenderAPI\bin\Debug\net8.0\OBeautifulCode.Type.dll

@@ -176,13 +176,28 @@ HTTP POST [CrearEmailSender]({{server}}/api/email/extension/add)
 Response OK:
 ```json
 {
-  "code": 200,
+  "status": "Success",
+  "code": 201,
+  "message": "Extensión registrada con éxito.",
   "data": {
     "extensionName": "correo.com",
     "status": true
   }
 }
 ```
+Response 400:
+```json
+{
+  "code": 400,
+  "message": "Solicitud incorrecta",
+  "detail": [
+    "Los datos enviados no son válidos",
+    "La extensión [ásdas] no es válida."
+  ]
+}
+```
+
+
 
 #### Listar Extensiones de correo.
 HTTP GET [Listar Extenciones]({{server}}/api/email/extension/list) 
@@ -191,7 +206,9 @@ Response OK:
 
 ```json
 {
+  "status": "Success",
   "code": 200,
+  "message": "Extensión encontrada.",
   "data": [
     {
       "extensionName": "correo.com",
@@ -199,7 +216,11 @@ Response OK:
     },
     {
       "extensionName": "correo1.com",
-      "status": false
+      "status": true
+    },
+    {
+      "extensionName": "correo2.com",
+      "status": true
     }
   ]
 }
@@ -212,13 +233,30 @@ HTTP GET [Buscar Extencion por nombre]({{server}}/api/email/extension/find/{exte
 Response OK:
 ```json
 {
+  "status": "Success",
   "code": 200,
+  "message": "Extensión encontrada.",
   "data": {
     "extensionName": "correo.com",
     "status": true
   }
 }
 ```
+
+```json
+{
+  "code": 404,
+  "message": "Recurso no encontrado",
+  "detail": [
+    "El recurso solicitado no pudo ser encontrado.",
+    "La extensión 'correo3.com' no está registrada."
+  ]
+}
+```
+
+
+
+
 #### Activar/desactivar Extension por nombre
 
 HTTP PUT [Cambiar Status por nombre]({{server}}/api/email/extension/change-status?extension={extensionName}&status={status})  
@@ -228,9 +266,11 @@ Se envian parametros en la solicitud (queryParam), suponiendo status=false
 Response OK:
 ```json
 {
+  "status": "Success",
   "code": 200,
+  "message": "Extensión actualizada con éxito",
   "data": {
-    "extensionName": "correo1.com",
+    "extensionName": "correo.com",
     "status": false
   }
 }
@@ -241,8 +281,10 @@ HTTP DELETE [Cambiar Status por nombre]({{server}}/api/email/extension/delete?ex
 Response OK:
 ```json
 {
+  "status": "Success",
   "code": 200,
-  "data": "Extension eliminada con exito"
+  "message": "Extensión eliminada con éxito",
+  "data": null
 }
 ```
 
@@ -272,15 +314,17 @@ Luego de la validacion a los campos correspondiente, el response OK seria:
 
 ```json
 {
-  "code": 200,
+  "status": "Success",
+  "code": 201,
+  "message": "Smtp registrado con éxito.",
   "data": {
     "host": "smtp.correo.com",
-    "port": 123,
+    "port": 465,
     "username": "correo@correo.com",
-    "password": "+8BcoQrdtPPV6khU2+mphw==",
+    "password": "clave_de_usuario_o_aplicacion_CIFRADA",
     "useSSL": true,
     "fromEmail": "correo@correo.com",
-    "createdAt": "2025-04-02 10:58:07"
+    "createdAt": "09-05-2025 09:48:46"
   }
 }
 ```
@@ -296,7 +340,9 @@ El response OK seria:
 
 ```json
 {
+  "status": "Success",
   "code": 200,
+  "message": "Lista de SMTP",
   "data": [
     {
       "host": "smtp.gmail.com",
@@ -321,22 +367,24 @@ El response OK seria:
 ```
 
 #### buscar SMTP por correo.
-HTTP GET [buscarSmtp]({{server}}/api/email/settings/list]) 
+HTTP GET [buscarSmtp]({{server}}/api/email/settings/{FromEmail}]) 
 
 se puede ubicar un smtp configurado por su valor FromEmail (el campo Password se muestra cifrado)
 El response OK seria:
 
 ``` Json
 {
+  "status": "Success",
   "code": 200,
+  "message": "Smtp encontrado con éxito.",
   "data": {
-    "host": "correo.com",
-    "port": 1212,
-    "username": "string",
-    "password": "qSbPIFlC58Vjf4gzhIz9JA==",
+    "host": "smtp.correo.com",
+    "port": 465,
+    "username": "correo@correo.com",
+    "password": "clave_de_usuario_o_aplicacion_CIFRADA",
     "useSSL": true,
     "fromEmail": "correo@correo.com",
-    "createdAt": "2025-04-02 11:10:48"
+    "createdAt": "09-05-2025 09:48:46"
   }
 }
 ```
@@ -349,8 +397,10 @@ Se utiliza el campo de remitente (fromEmail) para ubicar en la base de datos y e
 respuesta OK :
 ```json
 {
+  "status": "Success",
   "code": 200,
-  "data": "Registro eliminado correctamente."
+  "message": "Eliminado.",
+  "data": "Smtp eliminado exitosamente."
 }
 ```
 
@@ -379,7 +429,15 @@ Finalmente podra consumir el servicio de envio de correos. debera tener en cuent
 }
 ```
 
-
+reponse 200:
+``` json
+{
+  "status": "Success",
+  "code": 200,
+  "message": "Correo Enviado.",
+  "data": "Correo enviado con éxito"
+}
+```
 
 <div style="margin-top: 50px; text-align: center; font-size: 12px;">
     <hr>

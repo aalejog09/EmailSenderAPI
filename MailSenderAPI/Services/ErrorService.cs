@@ -30,7 +30,7 @@
                 return new ApiException((int)errorCode, error.message, detailList);
             }
 
-            return new ApiException(500, "Unknown Error", new List<string> { "An unexpected error occurred." });
+            return new ApiException(500, "Error Desconocido", new List<string> { "Verificar en la aplicacion." });
         }
     }
 

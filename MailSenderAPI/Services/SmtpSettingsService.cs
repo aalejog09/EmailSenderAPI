@@ -23,17 +23,17 @@ namespace MailSenderAPI.Services
             _errorService = errorService;
         }
 
-        public async Task<ApiResponse<List<SmtpSettignsRsDTO>>> GetAllSmtpSettingsAsync()
+        public async Task<JSendResponse<List<SmtpSettignsRsDTO>>> GetAllSmtpSettingsAsync()
         {
             var smtpSettingsList =  await _context.SmtpSettings.ToListAsync();
             if (smtpSettingsList.Count == 0)
-                throw _errorService.GetApiException(ErrorCodes.NotFound, "No existe algun SMTP configurado");
+                throw _errorService.GetApiException(ErrorCodes.NotFound, "No existe algún SMTP configurado");
+            return new JSendResponse<List<SmtpSettignsRsDTO>> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Lista de SMTP", Data = mapToDTOlist(smtpSettingsList) };
 
-            return new ApiResponse<List<SmtpSettignsRsDTO>>(mapToDTOlist(smtpSettingsList));
         }
 
        
-        public async Task<ApiResponse<SmtpSettignsRsDTO>> CreateAsync(SmtpSettignsRqDTO smtpSettingsDTO)
+        public async Task<JSendResponse<SmtpSettignsRsDTO>> CreateAsync(SmtpSettignsRqDTO smtpSettingsDTO)
         {
 
             string[] validationErrors = await ValidateErrorsSmtpSettignsRqDTO(smtpSettingsDTO);
@@ -48,16 +48,17 @@ namespace MailSenderAPI.Services
             _context.SmtpSettings.Add(smtpSettings); 
             await _context.SaveChangesAsync();
 
-            return new ApiResponse<SmtpSettignsRsDTO>(mapToDTO(smtpSettings));
+            return new JSendResponse<SmtpSettignsRsDTO>{ Status = ResponseStatus.SUCCESS, Code = 201, Message = "Smtp registrado con éxito.", Data = mapToDTO(smtpSettings) };
         }
 
-        public async Task<ApiResponse<SmtpSettignsRsDTO>> GetByIdAsync(int id)
+        public async Task<JSendResponse<SmtpSettignsRsDTO>> GetByIdAsync(int id)
         {
             var smtpSettings = await _context.SmtpSettings.FirstOrDefaultAsync(s => s.Id == id);
 
             return smtpSettings == null
                 ? throw _errorService.GetApiException(ErrorCodes.NotFound, "Smtp no encontrado")
-                : new ApiResponse<SmtpSettignsRsDTO>(mapToDTO(smtpSettings));
+                : new JSendResponse<SmtpSettignsRsDTO> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Smtp encontrado con éxito.", Data = mapToDTO(smtpSettings) };
+
         }
 
         public async Task<SmtpSettignsRsDTO> GetByEmailAsync(string FromEmail)
@@ -75,32 +76,30 @@ namespace MailSenderAPI.Services
 
         }
 
-        public async Task<ApiResponse<SmtpSettignsRsDTO>> GetSettingsDTOByEmailAsync(string FromEmail)
+        public async Task<JSendResponse<SmtpSettignsRsDTO>> GetSettingsDTOByEmailAsync(string FromEmail)
         {
             var smtpSettings = await _context.SmtpSettings.FirstOrDefaultAsync(s => s.FromEmail == FromEmail) ??
                throw _errorService.GetApiException(ErrorCodes.NotFound, "Smtp no encontrado.");
-
-            return new ApiResponse<SmtpSettignsRsDTO>(mapToDTO(smtpSettings));
+            return new JSendResponse<SmtpSettignsRsDTO> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Smtp encontrado con éxito.", Data = mapToDTO(smtpSettings) };
 
         }
 
 
-        public async Task<ApiResponse<string>> DeleteAsync(string fromEmail)
+        public async Task<JSendResponse<string>> DeleteAsync(string fromEmail)
         {
             var smtpSettings = await _context.SmtpSettings.FirstOrDefaultAsync(s => s.FromEmail == fromEmail) ?? 
                 throw _errorService.GetApiException(ErrorCodes.NotFound, "Smtp no encontrado.");
-           
             _context.SmtpSettings.Remove(smtpSettings);
-            
             await _context.SaveChangesAsync();
-            return new ApiResponse<string>("Registro eliminado correctamente."); ;
+            return new JSendResponse<string> { Status = ResponseStatus.SUCCESS, Code = 200, Message = "Eliminado.", Data = "Smtp eliminado exitosamente." };
+
         }
 
         private SmtpSettignsRsDTO mapToDTO(SmtpSettings smtpSettings)
         {
             SmtpSettignsRsDTO SmtpSettignsRsDTO = new SmtpSettignsRsDTO
             {
-                CreatedAt = smtpSettings.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss"),
+                CreatedAt = smtpSettings.CreatedAt.ToString("dd-MM-yyyy HH:mm:ss"),
                 FromEmail = smtpSettings.FromEmail,
                 Username = smtpSettings.Username,
                 Host = smtpSettings.Host,
@@ -150,7 +149,7 @@ namespace MailSenderAPI.Services
 
             // Validar host (IP o dominio)
             if (!Regex.IsMatch(smtpSettingsDTO.Host, @"^(([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,})|(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))$"))
-                validationErrors.Add("El host debe ser un dominio o IP válida.");
+                validationErrors.Add("El host debe ser un dominio o IP válido.");
 
             // Validar puerto
             if (smtpSettingsDTO.Port < 1 || smtpSettingsDTO.Port > 999999)
